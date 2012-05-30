@@ -25,18 +25,19 @@ var User = describe('User', function () {
     property('username', String);
     property('password', String);
     property('email', String);
-    property('reputation', Number);
-    property('createdAt', Date);
-    property('updatedAt', Date);
-    property('geoX', Number);
-    property('geoY', Number);
+    property('reputation', Number, {default: 1});
+    property('geoLat', Number);
+    property('geoLon', Number);
+    property('createdAt', Date, {default: Date});
+    property('updatedAt', Date, {default: Date});
 });
 var Need = describe('Need', function () {
     property('needee', String);
+    property('importance', Number, {default: 0});
     property('satisfaction', String);
-    property('createdAt', Date);
-    property('updatedAt', Date);
+    property('createdAt', Date, {default: Date});
+    property('updatedAt', Date, {default: Date});
 });
 
-Need.belongsTo(User, {as: 'Needer', foreignKey: 'NeederID'});
-Need.belongsTo(User, {as: 'Fulfiller', foreignKey: 'FulfillerID'});
+Need.belongsTo(User, {as: 'needer', foreignKey: 'neederID'});
+Need.belongsTo(User, {as: 'fulfiller', foreignKey: 'fulfillerID'});
