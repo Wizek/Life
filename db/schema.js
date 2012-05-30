@@ -37,3 +37,6 @@ var Need = describe('Need', function () {
     property('createdAt', Date);
     property('updatedAt', Date);
 });
+
+Need.belongsTo(User, {as: 'Needer', foreignKey: 'NeederID'});
+Need.belongsTo(User, {as: 'Fulfiller', foreignKey: 'FulfillerID'});
