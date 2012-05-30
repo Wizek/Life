@@ -1,0 +1,18 @@
+.page-header
+  h1 Details of user
+
+div(about=path_to.user(user))
+  .field(property='username')= user.username
+  .field(property='password')= user.password
+  .field(property='email')= user.email
+  .field(property='reputation')= user.reputation
+  .field(property='createdAt')= user.createdAt
+  .field(property='updatedAt')= user.updatedAt
+  .field(property='geoX')= user.geoX
+  .field(property='geoY')= user.geoY
+
+.actions
+  != link_to('Edit', path_to.edit_user(user), {class: 'btn primary'}) + ' '
+  != link_to('Delete', path_to.user(user), {class: 'btn danger', method: 'delete', remote: true, jsonp: '(function (u) { location.href = u; })'})
+  span= ' or '
+  != link_to('Back to index', path_to.users())

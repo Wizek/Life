@@ -5,6 +5,7 @@
 , "dependencies":
   { "jade":              "*"
   , "jade-ext":          "*"
+  , "stylus":            "*"
   , "express":          "~2.x"
   , "railway":          ">= 0.2.6"
   , "jugglingdb":       ">= 0.1.0"

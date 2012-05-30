@@ -1,0 +1,15 @@
+.page-header
+  h1 Index of users
+
+- users.forEach(function (user) {
+  .row
+    .span-two-thirds= 'user #' + user.id
+    .span-one-third
+      != link_to('Edit', path_to.edit_user(user), {class: 'btn primary'}) + ' '
+      != link_to('Delete', path_to.user(user), {class: 'btn danger', method: 'delete', remote: true, jsonp: '(function (u) {location.href = u;})'})
+- });
+
+hr
+
+.well
+  != link_to('New user', path_to.new_user(), {class: 'btn'})
