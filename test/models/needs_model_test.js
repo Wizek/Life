@@ -14,17 +14,26 @@ function UserValidAttributes () {
 
 exports.needTests = {
   testGetAllActive: function(test) {
-    test.expect(1)
+    test.expect(7)
     Need.getAllActive(function(err, activeNeeds) {
+      // Ensure that there is no needs yet
       test.deepEqual(activeNeeds, [])
+      // Create new user
       User.create(new UserValidAttributes, function(err, user) {
-        console.log(user.errors)
+        // Create new need
         user.needs.create({needee: 'bread'}, function(err, need) {
-          console.log(need.errors)
-          Need.getAllActive(function(err, activeNeed) {
-            test.equal(activeNeed.length, 1)
-            test.deepEqual(activeNeed[0], {needee: 'bread'})
-            test.done()
+          // Get test users needs and check them
+          user.needs(function(err, userNeeds) {
+            test.equal(userNeeds.length, 1)
+            test.equal(userNeeds[0].needee, 'bread')
+            test.equal(userNeeds[0].neederID, user.id)
+            // Get all active needs and check them
+            Need.getAllActive(function(err, activeNeeds) {
+              test.equal(activeNeeds.length, 1)
+              test.deepEqual(activeNeeds[0].needee, 'bread')
+              test.equal(activeNeeds[0].neederID, user.id)
+              test.done()
+            })
           })
         })
       })
