@@ -30,20 +30,4 @@ var User = describe('User', function () {
     property('updatedAt', Date);
     property('geoX', Number);
     property('geoY', Number);
-});var User = describe('User', function () {
-    property('username', String);
-    property('password', String);
-    property('email', String);
-    property('reputation', Number);
-    property('createdAt', Date);
-    property('updatedAt', Date);
-    property('geoX', Number);
-    property('geoY', Number);
-});var Need = describe('Need', function () {
-    property('NeederID', String);
-    property('FulfillerID', String);
-});var Need = describe('Need', function () {
-    property('NeederID', String);
-    property('FulfillerID', String);
-    property('Needee', String);
 });
