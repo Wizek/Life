@@ -9,7 +9,10 @@ action('new', function () {
 });
 
 action(function create() {
-    Need.create(req.body.Need, function (err, need) {
+    var n = req.body.Need
+    n.satisfaction = null
+    n.createdAt = n.updatedAt = new Date()
+    Need.create(n, function (err, need) {
         if (err) {
             flash('error', 'Need can not be created');
             render('new', {
