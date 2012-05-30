@@ -39,5 +39,6 @@ var Need = describe('Need', function () {
     property('updatedAt', Date, {default: Date});
 });
 
+Need.belongsTo(User, {as: 'needer', foreignKey: 'neederID'});
 Need.belongsTo(User, {as: 'fulfiller', foreignKey: 'fulfillerID'});
 User.hasMany(Need, {as: 'needs', foreignKey: 'neederID'});
