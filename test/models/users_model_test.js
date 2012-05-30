@@ -3,7 +3,7 @@ var app = require('railway').createServer();
 function UserValidAttributes () {
   return(
     { username: 'Wiz'
-    , password: '123'
+    , password: '12345678'
     , email: 'valid@mail.com'
     , reputation: 9001
     , geoLat: 47.476941
