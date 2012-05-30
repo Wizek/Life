@@ -34,4 +34,6 @@ var User = describe('User', function () {
 var Need = describe('Need', function () {
     property('needee', String);
     property('satisfaction', String);
+    property('createdAt', Date);
+    property('updatedAt', Date);
 });
