@@ -8,8 +8,8 @@ div(about=path_to.user(user))
   .field(property='reputation')= user.reputation
   .field(property='createdAt')= user.createdAt
   .field(property='updatedAt')= user.updatedAt
-  .field(property='geoX')= user.geoX
-  .field(property='geoY')= user.geoY
+  .field(property='geoLat')= user.geoLat
+  .field(property='geoLon')= user.geoLon
 
 .actions
   != link_to('Edit', path_to.edit_user(user), {class: 'btn primary'}) + ' '
