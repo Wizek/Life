@@ -1,0 +1,15 @@
+.page-header
+  h1 Index of needs
+
+- needs.forEach(function (need) {
+  .row
+    .span-two-thirds= 'need #' + need.id
+    .span-one-third
+      != link_to('Edit', path_to.edit_need(need), {class: 'btn primary'}) + ' '
+      != link_to('Delete', path_to.need(need), {class: 'btn danger', method: 'delete', remote: true, jsonp: '(function (u) {location.href = u;})'})
+- });
+
+hr
+
+.well
+  != link_to('New need', path_to.new_need(), {class: 'btn'})

@@ -31,3 +31,7 @@ var User = describe('User', function () {
     property('geoX', Number);
     property('geoY', Number);
 });
+var Need = describe('Need', function () {
+    property('needee', String);
+    property('satisfaction', String);
+});
