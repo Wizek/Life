@@ -2,12 +2,20 @@ var app = require('railway').createServer();
 
 function UserValidAttributes () {
   return(
-    { username: 'Wiz' + Math.floor(Math.random() * 1000000)
+    { username: 'Wiz'
     , password: '12345678'
-    , email: 'valid' + Math.floor(Math.random() * 1000000) + '@mail.com'
+    , email: 'valid@mail.com'
     , reputation: 9001
-    , geoLat: 47.476941
-    , geoLon: 19.059659
+    }
+  )
+}
+
+function UserValidAttributes2 () {
+  return(
+    { username: 'Wiz2'
+    , password: '12345678'
+    , email: 'valid2@mail.com'
+    , reputation: 9001
     }
   )
 }
@@ -41,7 +49,7 @@ exports.needTests = {
                   test.deepEqual(activeNeedNeeder, user)
 
                   // Create a new user as user2
-                  User.create(new UserValidAttributes, function(err, user2) {
+                  User.create(new UserValidAttributes2, function(err, user2) {
                     // Fulfill the active need with user2
                     user2.fulfillNeed(activeNeed, function(err, fulfilledNeed) {
                       test.equal(fulfilledNeed.needee, 'bread')
