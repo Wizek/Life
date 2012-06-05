@@ -34,6 +34,7 @@ var User = describe('User', function () {
 var Need = describe('Need', function () {
     property('needee', String);
     property('importance', Number, {default: 0});
+    property('fulfilled', Boolean, {default: false})
     property('satisfaction', String);
     property('createdAt', Date, {default: Date});
     property('updatedAt', Date, {default: Date});
