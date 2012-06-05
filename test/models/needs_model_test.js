@@ -6,25 +6,68 @@ function UserValidAttributes () {
     , password: '12345678'
     , email: 'valid@mail.com'
     , reputation: 9001
-    , geoLat: 47.476941
-    , geoLon: 19.059659
+    }
+  )
+}
+
+function UserValidAttributes2 () {
+  return(
+    { username: 'Wiz2'
+    , password: '12345678'
+    , email: 'valid2@mail.com'
+    , reputation: 9001
     }
   )
 }
 
 exports.needTests = {
   testGetAllActive: function(test) {
-    test.expect(1)
+    test.expect(10)
     Need.getAllActive(function(err, activeNeeds) {
+      // Ensure that there is no needs yet
       test.deepEqual(activeNeeds, [])
+      // Create new user
       User.create(new UserValidAttributes, function(err, user) {
-        console.log(user.errors)
+        // Create new need
         user.needs.create({needee: 'bread'}, function(err, need) {
-          console.log(need.errors)
-          Need.getAllActive(function(err, activeNeed) {
-            test.equal(activeNeed.length, 1)
-            test.deepEqual(activeNeed[0], {needee: 'bread'})
-            test.done()
+          // Get test users needs and check them
+          user.needs(function(err, userNeeds) {
+            test.equal(userNeeds.length, 1)
+            var testNeed = userNeeds[0]
+            test.equal(testNeed.needee, 'bread')
+            // Get the needer of this need
+            testNeed.needer(function(err, needer) {
+              test.deepEqual(needer, user)
+
+              // Get all active needs and check them
+              Need.getAllActive(function(err, activeNeeds) {
+                test.equal(activeNeeds.length, 1)
+                var activeNeed = activeNeeds[0]
+                test.equal(activeNeed.needee, 'bread')
+                // Get the needer of this activeNeed
+                activeNeed.needer(function(err, activeNeedNeeder) {
+                  test.deepEqual(activeNeedNeeder, user)
+
+                  // Create a new user as user2
+                  User.create(new UserValidAttributes2, function(err, user2) {
+                    // Fulfill the active need with user2
+                    user2.fulfillNeed(activeNeed, function(err, fulfilledNeed) {
+                      test.equal(fulfilledNeed.needee, 'bread')
+                      // Get the fulfiller of this fulfilled need
+                      fulfilledNeed.fulfiller(function(err, fulfiller) {
+                        test.deepEqual(fulfiller, user2)
+
+                        // Get active needs again and ensure the list is empty
+                        Need.getAllActive(function(err, allActiveNeeds) {
+                          test.equal(allActiveNeeds.length, 0)
+                          test.done()
+                        })
+                      })
+                    })
+                  })
+                })
+              })
+            })
           })
         })
       })
